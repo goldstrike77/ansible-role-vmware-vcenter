@@ -1,0 +1,28 @@
+---
+- name: Add ESXi Host to vCenter.
+  community.vmware.vmware_host:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datacenter_name: "{{ vcenter_datacenter }}"
+    cluster_name: "{{ vcenter_cluster }}"
+    esxi_hostname: "{{ item }}"
+    esxi_username: "{{ vcenter_esxi_username | default('root') }}"
+    esxi_password: "{{ vcenter_esxi_password }}"
+    validate_certs: false
+    state: present
+  delegate_to: localhost
+  loop: "{{ vcenter_esxi_hosts }}"
+
+- name: Exit Maintenance Mode.
+  community.vmware.vmware_maintenancemode:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    esxi_hostname: "{{ item }}"
+    evacuate: true
+    timeout: 3600
+    validate_certs: false
+    state: absent
+  delegate_to: localhost
+  loop: "{{ vcenter_esxi_hosts }}"

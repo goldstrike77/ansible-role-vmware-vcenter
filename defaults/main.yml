@@ -2,4 +2,28 @@
 vcenter_hostname: "vcenter.esxi.lab"
 vcenter_username: "administrator@vsphere.local"
 vcenter_password: "password"
-vcenter_datacenter: "demo"
+vcenter_datacenter: "cn-north-1"
+vcenter_cluster: "infra"
+vcenter_cluster_drs:
+  enable: true
+  default_vm_behavior: "manual"
+vcenter_cluster_ha:
+  enable: true
+  auto_compute_percentages: false
+  failover_level: 1
+  cpu_failover_resources_percent: 50
+  memory_failover_resources_percent: 50
+vcenter_license: "00000-00000-00000-00000-00000"
+vcenter_esxi_license: "00000-00000-00000-00000-00000"
+vcenter_esxi_hosts: []
+vcenter_esxi_username: "root"
+vcenter_esxi_password: "password"
+vcenter_host_portgroup:
+  enable: true
+  switch: "vSwitch0"
+  portgroup: "Guest"
+  vlan: 0
+tag:
+  - { category: "default", name: "managed-by-ansible" }
+  - { category: "k8s-region", name: "region" }
+  - { category: "k8s-zone", name: "zone" }

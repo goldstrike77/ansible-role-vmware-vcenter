@@ -1,0 +1,24 @@
+---
+- name: Create a category.
+  community.vmware.vmware_category:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    category_name: "{{ item.category }}"
+    category_description: "{{ item.description | default('') }}"
+    category_cardinality: "multiple"
+    validate_certs: false
+    state: present
+  loop: "{{ tag }}"
+
+- name: Create a tag.
+  community.vmware.vmware_tag:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    category_name: "{{ item.category }}"
+    tag_name: "{{ item.name }}"
+    tag_description: "{{ item.description | default('') }}"
+    validate_certs: false
+    state: present
+  loop: "{{ tag }}"

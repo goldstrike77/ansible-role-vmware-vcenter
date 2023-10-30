@@ -1,0 +1,14 @@
+---
+- name: Add Management Network VM Portgroup.
+  community.vmware.vmware_portgroup:
+    cluster_name: "{{ vcenter_cluster }}"
+    hostname: "{{ item }}"
+    username: "{{ vcenter_esxi_username | default('root') }}"
+    password: "{{ vcenter_esxi_password }}"
+    switch: "{{ vcenter_host_portgroup.switch }}"
+    portgroup: "{{ vcenter_host_portgroup.portgroup }}"
+    vlan_id: "{{ vcenter_host_portgroup.vlan | default(0) }}"
+    validate_certs: false
+    state: present
+  loop: "{{ vcenter_esxi_hosts }}"
+  delegate_to: localhost

@@ -1,4 +1,26 @@
 ---
 - name: Manage VMware vSphere Datacenters.
-  include: "Datacenter.yml"
-  tags: Datacenter
+  include: "datacenter.yml"
+  tags: datacenter
+
+- name: Manage VMware vSphere Clusters.
+  include: "cluster.yml"
+  tags: clusters
+
+- name: Manage VMware vSphere ESXi host.
+  include: "host.yml"
+  tags: host
+
+- name: Manage VMware ESXi host portgroup.
+  include: "portgroup.yml"
+  when: vcenter_host_portgroup.enable | bool
+  tags: portgroup
+
+- name: Manage VMware vCenter license keys.
+  include: "license.yml"
+  tags: license
+
+- name: Manage VMware tags.
+  include: "tag.yml"
+  when: tag is defined
+  tags: tag

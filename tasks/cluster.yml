@@ -1,0 +1,41 @@
+---
+- name: Create Cluster.
+  community.vmware.vmware_cluster:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datacenter_name: "{{ vcenter_datacenter }}"
+    cluster_name: "{{ vcenter_cluster }}"
+    validate_certs: false
+    state: present
+  delegate_to: localhost
+
+- name: Manage Distributed Resource Scheduler on VMware vSphere clusters.
+  community.vmware.vmware_cluster_drs:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datacenter_name: "{{ vcenter_datacenter }}"
+    cluster_name: "{{ vcenter_cluster }}"
+    validate_certs: false
+    enable: true
+    drs_default_vm_behavior: "{{ vcenter_cluster_drs.default_vm_behavior }}"
+  when: vcenter_cluster_drs.enable | bool
+  delegate_to: localhost
+
+- name: Enable High-Availability on VMware vSphere clusters.
+  community.vmware.vmware_cluster_ha:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datacenter_name: "{{ vcenter_datacenter }}"
+    cluster_name: "{{ vcenter_cluster }}"
+    validate_certs: false
+    enable: true
+    reservation_based_admission_control:
+      auto_compute_percentages: "{{ vcenter_cluster_ha.auto_compute_percentages | default(false) }}"
+      failover_level: "{{ vcenter_cluster_ha.failover_level | default(1) }}"
+      cpu_failover_resources_percent: "{{ vcenter_cluster_ha.cpu_failover_resources_percent | default(50) }}"
+      memory_failover_resources_percent: "{{ vcenter_cluster_ha.memory_failover_resources_percent | default(50) }}"
+  when: vcenter_cluster_ha.enable | bool
+  delegate_to: localhost
