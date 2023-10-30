@@ -1,0 +1,5 @@
+---
+vcenter_hostname: "vcenter.esxi.lab"
+vcenter_username: "administrator@vsphere.local"
+vcenter_password: "password"
+vcenter_datacenter: "demo"

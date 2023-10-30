@@ -1,0 +1,9 @@
+---
+- name: Create Datacenter.
+  community.vmware.vmware_datacenter:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datacenter_name: "{{ vcenter_datacenter }}"
+    state: present
+  delegate_to: localhost

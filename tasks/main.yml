@@ -1,0 +1,4 @@
+---
+- name: Manage VMware vSphere Datacenters.
+  include: "Datacenter.yml"
+  tags: Datacenter
