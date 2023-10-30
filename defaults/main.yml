@@ -23,7 +23,7 @@ vcenter_host_portgroup:
   switch: "vSwitch0"
   portgroup: "Guest"
   vlan: 0
-tag:
-  - { category: "default", name: "managed-by-ansible" }
-  - { category: "k8s-region", name: "region" }
-  - { category: "k8s-zone", name: "zone" }
+# tag:
+#   - { category: "default", name: "managed-by-ansible" }
+#   - { category: "k8s-region", name: "region" }
+#   - { category: "k8s-zone", name: "zone" }
