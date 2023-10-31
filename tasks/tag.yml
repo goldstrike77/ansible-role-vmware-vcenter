@@ -9,7 +9,7 @@
     category_cardinality: "multiple"
     validate_certs: false
     state: present
-  loop: "{{ tag }}"
+  loop: "{{ vcenter_tag }}"
 
 - name: Create a tag.
   community.vmware.vmware_tag:
@@ -21,4 +21,4 @@
     tag_description: "{{ item.description | default('') }}"
     validate_certs: false
     state: present
-  loop: "{{ tag }}"
+  loop: "{{ vcenter_tag }}"

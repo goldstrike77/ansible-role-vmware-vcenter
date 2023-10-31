@@ -16,11 +16,16 @@
   when: vcenter_host_portgroup.enable | bool
   tags: portgroup
 
+- name: Manage a datastore on ESXi host.
+  include: "host_datastore.yml"
+  when: vcenter_host_datastore is defined
+  tags: host_datastore
+
 - name: Manage VMware vCenter license keys.
   include: "license.yml"
   tags: license
 
 - name: Manage VMware tags.
   include: "tag.yml"
-  when: tag is defined
+  when: vcenter_tag is defined
   tags: tag

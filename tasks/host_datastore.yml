@@ -1,0 +1,14 @@
+- name: Mount VMFS datastores to ESXi.
+  community.vmware.vmware_host_datastore:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datastore_name: "{{ item.name }}"
+    datastore_type: "{{ item.type }}"
+    vmfs_device_name: "{{ item.device_name }}"
+    vmfs_version: "{{ item.version | default(6) }}"
+    esxi_hostname: "{{ vcenter_esxi_hosts[0] }}"
+    validate_certs: false
+    state: present
+  loop: "{{ vcenter_host_datastore }}"
+  delegate_to: localhost
