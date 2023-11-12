@@ -11,6 +11,15 @@
   include: "host.yml"
   tags: host
 
+- name: Manage VMware vCenter license keys.
+  include: "license.yml"
+  tags: license
+
+- name: Manage VMware tags.
+  include: "tag.yml"
+  when: vcenter_tag is defined
+  tags: tag
+
 - name: Manage VMware ESXi host portgroup.
   include: "portgroup.yml"
   when: vcenter_host_portgroup.enable | bool
@@ -20,12 +29,3 @@
   include: "host_datastore.yml"
   when: vcenter_host_datastore is defined
   tags: host_datastore
-
-- name: Manage VMware vCenter license keys.
-  include: "license.yml"
-  tags: license
-
-- name: Manage VMware tags.
-  include: "tag.yml"
-  when: vcenter_tag is defined
-  tags: tag

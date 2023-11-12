@@ -14,14 +14,14 @@
   delegate_to: localhost
 
 - name: Configure Storage I/O Control of an mounted datastore.
-  community.vmware.vmware_datastore_info:
+  community.vmware.vmware_datastore:
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
     password: "{{ vcenter_password }}"
     datacenter_name: "{{ vcenter_datacenter }}"
     name: "{{ item.name }}"
     storage_io_control: "{{ item.storage_io_control | default('enable_io_statistics') }}"
-    congestion_threshold_manual: "{{ item.congestion_threshold_manual | default(30) }}"
+    congestion_threshold_percentage: "{{ item.congestion_threshold_percentage | default(90) }}"
     statistic_collection: "{{ item.statistic_collection | default(true) | bool }}"
     validate_certs: false
   loop: "{{ vcenter_host_datastore }}"
