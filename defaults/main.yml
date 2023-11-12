@@ -19,7 +19,7 @@ vcenter_esxi_hosts: []
 vcenter_esxi_username: "root"
 vcenter_esxi_password: "password"
 vcenter_host_portgroup:
-  enable: true
+  enable: false
   switch: "vSwitch0"
   portgroup: "Guest"
   vlan: 0
