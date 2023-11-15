@@ -1,0 +1,51 @@
+---
+- name: Create dvSwitch.
+  community.vmware.vmware_dvswitch:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datacenter: "{{ vcenter_datacenter }}"
+    switch: "{{ vcenter_dvs_portgroup.switch }}"
+    version: "{{ vcenter_dvs_portgroup.version }}"
+    mtu: "{{ vcenter_dvs_portgroup.mtu }}"
+    uplink_quantity: "{{ vcenter_dvs_portgroup.uplink }}"
+    uplink_prefix: "Uplink_"
+    discovery_protocol: cdp
+    discovery_operation: both
+    multicast_filtering_mode: snooping
+    health_check:
+      vlan_mtu: false
+      vlan_mtu_interval: 1
+      teaming_failover: true
+      teaming_failover_interval: 1
+    validate_certs: false
+    state: present
+  delegate_to: localhost
+
+- name: Add Host to dvSwitch.
+  community.vmware.vmware_dvs_host:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    esxi_hostname: "{{ item }}"
+    switch_name: "{{ vcenter_dvs_portgroup.switch }}"
+    vmnics: "{{ vcenter_dvs_portgroup.vmnics }}"
+    validate_certs: false
+    state: present
+  loop: "{{ vcenter_esxi_hosts }}"
+  delegate_to: localhost
+
+- name: Create vlan trunk portgroup.
+  community.vmware.vmware_dvs_portgroup:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    portgroup_name: "{{ vcenter_dvs_portgroup.portgroup_name }}"
+    switch_name: "{{ vcenter_dvs_portgroup.switch }}"
+    vlan_id: "{{ vcenter_dvs_portgroup.vlan_id }}"
+    vlan_trunk: true
+    num_ports: 120
+    port_binding: static
+    validate_certs: false
+    state: present
+  delegate_to: localhost

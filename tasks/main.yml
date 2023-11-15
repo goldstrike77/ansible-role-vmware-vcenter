@@ -25,6 +25,11 @@
   when: vcenter_host_portgroup.enable | bool
   tags: portgroup
 
+- name: Create a Distributed Switch.
+  include: "dvs_portgroup.yml"
+  when: vcenter_dvs_portgroup.enable | bool
+  tags: dvswitch
+
 - name: Manage a datastore on ESXi host.
   include: "host_datastore.yml"
   when: vcenter_host_datastore is defined

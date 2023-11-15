@@ -23,6 +23,15 @@ vcenter_host_portgroup:
   switch: "vSwitch0"
   portgroup: "Guest"
   vlan: 0
+vcenter_dvs_portgroup:
+  enable: false
+  switch: "DSwitch01"
+  version: "7.0.3"
+  mtu: "1500"
+  uplink: 1
+  vmnics: ["vmnic1"]
+  portgroup_name: "vlan-trunk-portrgoup"
+  vlan_id: "1-1000, 1005, 1100-1200"
 #vcenter_host_datastore:
 #  - {
 #      name: "ds-san-lun0",
