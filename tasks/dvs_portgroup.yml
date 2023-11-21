@@ -5,10 +5,10 @@
     username: "{{ vcenter_username }}"
     password: "{{ vcenter_password }}"
     datacenter: "{{ vcenter_datacenter }}"
-    switch: "{{ vcenter_dvs_portgroup.switch }}"
-    version: "{{ vcenter_dvs_portgroup.version }}"
-    mtu: "{{ vcenter_dvs_portgroup.mtu }}"
-    uplink_quantity: "{{ vcenter_dvs_portgroup.uplink }}"
+    switch: "{{ vcenter_dvs_item.switch }}"
+    version: "{{ vcenter_dvs_item.version }}"
+    mtu: "{{ vcenter_dvs_item.mtu | default ('1500') }}"
+    uplink_quantity: "{{ vcenter_dvs_item.uplink | default(1) }}"
     uplink_prefix: "Uplink_"
     discovery_protocol: cdp
     discovery_operation: both
@@ -28,8 +28,8 @@
     username: "{{ vcenter_username }}"
     password: "{{ vcenter_password }}"
     esxi_hostname: "{{ item }}"
-    switch_name: "{{ vcenter_dvs_portgroup.switch }}"
-    vmnics: "{{ vcenter_dvs_portgroup.vmnics }}"
+    switch_name: "{{ vcenter_dvs_item.switch }}"
+    vmnics: "{{ vcenter_dvs_item.vmnics }}"
     validate_certs: false
     state: present
   loop: "{{ vcenter_esxi_hosts }}"
@@ -40,9 +40,9 @@
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
     password: "{{ vcenter_password }}"
-    portgroup_name: "{{ vcenter_dvs_portgroup.portgroup_name }}"
-    switch_name: "{{ vcenter_dvs_portgroup.switch }}"
-    vlan_id: "{{ vcenter_dvs_portgroup.vlan_id }}"
+    portgroup_name: "{{ vcenter_dvs_item.portgroup_name }}"
+    switch_name: "{{ vcenter_dvs_item.switch }}"
+    vlan_id: "{{ vcenter_dvs_item.vlan_id | default ('0-4094') }}"
     vlan_trunk: true
     num_ports: 120
     port_binding: static

@@ -22,12 +22,15 @@
 
 - name: Manage VMware ESXi host portgroup.
   include: "portgroup.yml"
-  when: vcenter_host_portgroup.enable | bool
+  when: vcenter_host_portgroup is defined
   tags: portgroup
 
 - name: Create a Distributed Switch.
   include: "dvs_portgroup.yml"
-  when: vcenter_dvs_portgroup.enable | bool
+  loop: '{{ vcenter_dvs_portgroup }}'
+  loop_control:
+    loop_var: vcenter_dvs_item
+  when: vcenter_dvs_portgroup is defined
   tags: dvswitch
 
 - name: Manage a datastore on ESXi host.

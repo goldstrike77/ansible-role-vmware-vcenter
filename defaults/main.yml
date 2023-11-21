@@ -18,20 +18,20 @@ vcenter_esxi_license: "00000-00000-00000-00000-00000"
 vcenter_esxi_hosts: []
 vcenter_esxi_username: "root"
 vcenter_esxi_password: "password"
-vcenter_host_portgroup:
-  enable: false
-  switch: "vSwitch0"
-  portgroup: "Guest"
-  vlan: 0
-vcenter_dvs_portgroup:
-  enable: false
-  switch: "DSwitch01"
-  version: "7.0.3"
-  mtu: "1500"
-  uplink: 1
-  vmnics: ["vmnic1"]
-  portgroup_name: "vlan-trunk-portrgoup"
-  vlan_id: "1-1000, 1005, 1100-1200"
+#vcenter_host_portgroup:
+#  switch: "vSwitch0"
+#  portgroup: "Guest"
+#  vlan: 0
+#vcenter_dvs_portgroup:
+#  - {
+#      switch: "DSwitch01",
+#      version: "7.0.3",
+#      mtu: "1600",
+#      uplink: 1,
+#      vmnics: ["vmnic1"],
+#      portgroup_name: "vlan-trunk-portrgoup",
+#      vlan_id: "0",
+#    }
 #vcenter_host_datastore:
 #  - {
 #      name: "ds-san-lun0",
