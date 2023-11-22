@@ -4,9 +4,10 @@
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
     password: "{{ vcenter_password }}"
-    license: "{{ vcenter_license }}"
+    license: "{{ vcenter_licenses_item.key }}"
     validate_certs: false
     state: present
+  when: vcenter_licenses_item.name | lower == "vcenter"
   delegate_to: localhost
 
 - name: Add ESXi license and assign to the ESXi host.
@@ -15,8 +16,22 @@
     username: "{{ vcenter_username }}"
     password: "{{ vcenter_password }}"
     esxi_hostname: "{{ item }}"
-    license: "{{ vcenter_esxi_license }}"
+    license: "{{ vcenter_licenses_item.key }}"
     validate_certs: false
     state: present
   loop: "{{ vcenter_esxi_hosts }}"
+  when: vcenter_licenses_item.name | lower == "esxi"
+  delegate_to: localhost
+
+- name: Add vSAN license and assign to the given cluster.
+  community.vmware.vcenter_license:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datacenter: "{{ vcenter_datacenter }}"
+    cluster_name: "{{ vcenter_cluster }}"
+    license: "{{ vcenter_licenses_item.key }}"
+    validate_certs: false
+    state: present
+  when: vcenter_licenses_item.name | lower == "vsan"
   delegate_to: localhost

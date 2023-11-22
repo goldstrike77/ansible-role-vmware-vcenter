@@ -17,10 +17,10 @@
     password: "{{ vcenter_password }}"
     datacenter_name: "{{ vcenter_datacenter }}"
     cluster_name: "{{ vcenter_cluster }}"
-    validate_certs: false
     enable: true
     drs_default_vm_behavior: "{{ vcenter_cluster_drs.default_vm_behavior }}"
-  when: vcenter_cluster_drs.enable | bool
+    validate_certs: false
+  when: vcenter_cluster_drs is defined
   delegate_to: localhost
 
 - name: Enable High-Availability on VMware vSphere clusters.
@@ -30,12 +30,12 @@
     password: "{{ vcenter_password }}"
     datacenter_name: "{{ vcenter_datacenter }}"
     cluster_name: "{{ vcenter_cluster }}"
-    validate_certs: false
     enable: true
     reservation_based_admission_control:
       auto_compute_percentages: "{{ vcenter_cluster_ha.auto_compute_percentages | default(false) }}"
       failover_level: "{{ vcenter_cluster_ha.failover_level | default(1) }}"
       cpu_failover_resources_percent: "{{ vcenter_cluster_ha.cpu_failover_resources_percent | default(50) }}"
       memory_failover_resources_percent: "{{ vcenter_cluster_ha.memory_failover_resources_percent | default(50) }}"
-  when: vcenter_cluster_ha.enable | bool
+    validate_certs: false
+  when: vcenter_cluster_ha is defined
   delegate_to: localhost

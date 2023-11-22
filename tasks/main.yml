@@ -13,6 +13,10 @@
 
 - name: Manage VMware vCenter license keys.
   include: "license.yml"
+  loop: "{{ vcenter_licenses }}"
+  loop_control:
+    loop_var: vcenter_licenses_item
+  when: vcenter_licenses is defined
   tags: license
 
 - name: Manage VMware tags.
@@ -27,7 +31,7 @@
 
 - name: Create a Distributed Switch.
   include: "dvs_portgroup.yml"
-  loop: '{{ vcenter_dvs_portgroup }}'
+  loop: "{{ vcenter_dvs_portgroup }}"
   loop_control:
     loop_var: vcenter_dvs_item
   when: vcenter_dvs_portgroup is defined

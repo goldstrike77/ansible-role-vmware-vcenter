@@ -1,28 +1,28 @@
 ---
-vcenter_hostname: "vcenter.esxi.lab"
-vcenter_username: "administrator@vsphere.local"
-vcenter_password: "password"
-vcenter_datacenter: "cn-north-1"
-vcenter_cluster: "infra"
-vcenter_cluster_drs:
-  enable: true
-  default_vm_behavior: "manual"
-vcenter_cluster_ha:
-  enable: true
-  auto_compute_percentages: false
-  failover_level: 1
-  cpu_failover_resources_percent: 50
-  memory_failover_resources_percent: 50
-vcenter_license: "00000-00000-00000-00000-00000"
-vcenter_esxi_license: "00000-00000-00000-00000-00000"
-vcenter_esxi_hosts: []
-vcenter_esxi_username: "root"
-vcenter_esxi_password: "password"
-#vcenter_host_portgroup:
+vcenter_hostname: "vcenter.esxi.lab" # The hostname or IP address of the vSphere vCenter server.
+vcenter_username: "administrator@vsphere.local" # The username of the vSphere vCenter server.
+vcenter_password: "password" # The password of the vSphere vCenter server.
+vcenter_datacenter: "cn-north-1" # The datacenter name to use for the operation.
+vcenter_cluster: "infra" # The cluster name where the resource will run.
+#vcenter_cluster_drs: # Define high availability parameters.
+#  default_vm_behavior: "manual"
+#vcenter_cluster_ha: # Define distributed resource scheduler parameters.
+#  auto_compute_percentages: false
+#  failover_level: 1
+#  cpu_failover_resources_percent: 50
+#  memory_failover_resources_percent: 50
+#vcenter_licenses: # Define license keys.
+#  - { name: "vCenter", key: "00000-00000-00000-00000-00000" }
+#  - { name: "ESXi", key: "00000-00000-00000-00000-00000" }
+#  - { name: "vSAN", key: "00000-00000-00000-00000-00000" }
+vcenter_esxi_hosts: [] # The hostname or IP address of the ESXi servers.
+vcenter_esxi_username: "root" # The username of the ESXi server.
+vcenter_esxi_password: "password" # The password of the ESXi server.
+#vcenter_host_portgroup: # Define Port Group parameters on a VMware Standard Switch (vSS) for given ESXi hosts.
 #  switch: "vSwitch0"
 #  portgroup: "Guest"
 #  vlan: 0
-#vcenter_dvs_portgroup:
+#vcenter_dvs_portgroup: # Define Distributed vSwitch portgroup parameters.
 #  - {
 #      switch: "DSwitch01",
 #      version: "7.0.3",
@@ -32,14 +32,21 @@ vcenter_esxi_password: "password"
 #      portgroup_name: "vlan-trunk-portrgoup",
 #      vlan_id: "0",
 #    }
-#vcenter_host_datastore:
+#vcenter_host_datastore: # Define storage datastore parameters.
 #  - {
 #      name: "ds-san-lun0",
 #      type: "vmfs",
-#      device_name: "naa.6001405eb6f7b3bb2a449f08155394d0",
+#      device_name: "naa.600140510d73f7c9e544374adb91cb9f",
 #      version: 6,
 #    }
-#vcenter_tag:
+#  - {
+#      name: "ds-san-lun1",
+#      type: "vmfs",
+#      device_name: "naa.6001405317d9e3acc0e4ae881b2c9bbb",
+#      version: 6,
+#    }
+#vcenter_tag: # Define tag parameters.
 #  - { category: "default", name: "managed-by-ansible" }
-#  - { category: "k8s-region", name: "region" }
-#  - { category: "k8s-zone", name: "zone" }
+#  - { category: "k8s-region", name: "cn-north-1" }
+#  - { category: "k8s-zone", name: "norther" }
+#  - { category: "k8s-zone", name: "souther" }
